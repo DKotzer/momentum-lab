@@ -1,7 +1,3 @@
-// https://api.openweathermap.org/data/2.5/weather?q=innisfil&appid=17902c251c1cf2deb7ffd01c5c268e55
-
-// https://api.unsplash.com/photos/random?query=toronto&client_id=aaBITLAvJKPCWb2tHUZSF5QEWJ_yYOQxuky-CiCfLhA
-
 const icons = {
   clear: "☀",
   rain: "️🌧",
@@ -11,6 +7,20 @@ const icons = {
   Clouds: "☁",
 };
 const currentHour = moment().format("H");
+if (currentHour >= 3 && currentHour < 12) {
+  greeting = "Good Morning";
+} else if (Number(currentHour) >= 12 && currentHour < 15) {
+  greeting = "Good Afternoon";
+} else if (currentHour >= 15 && currentHour < 20) {
+  greeting = "Good Evening";
+} else if (currentHour >= 20) {
+  console.log("20-3");
+  greeting = "Good Night";
+} else {
+  greeting = "Hello";
+}
+
+console.log("greeting", greeting);
 
 //Initial a request for the location
 navigator.geolocation.getCurrentPosition(function (pos) {
@@ -47,27 +57,11 @@ axios({
     console.log(error);
   });
 
-let greeting = "Test";
 axios({
   method: "get",
   url: "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json",
 })
   .then((response) => {
-    console.log("current hour", currentHour);
-    if (currentHour >= 3 && currentHour < 12) {
-      greeting = "Good Morning";
-    } else if (Number(currentHour) >= 12 && currentHour < 15) {
-      greeting = "Good Afternoon";
-    } else if (currentHour >= 15 && currentHour < 20) {
-      greeting = "Good Evening";
-    } else if (currentHour >= 20) {
-      console.log("20-3");
-      greeting = "Good Night";
-    } else {
-      greeting = "Hello";
-    }
-
-    console.log("greeting", greeting);
     $("body").append(
       `<div class='quote'>"${response.data.quoteText}" <br/ > -${response.data.quoteAuthor} </div>`
     );
