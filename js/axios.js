@@ -1,9 +1,9 @@
 const icons = {
-  clear: "☀",
-  rain: "️🌧",
-  storm: "⛈",
-  snow: "🌨",
-  mist: "🌫",
+  Clear: "☀",
+  Rain: "️🌧",
+  Storm: "⛈",
+  Snow: "🌨",
+  Mist: "🌫",
   Clouds: "☁",
 };
 const currentHour = moment().format("H");
@@ -37,6 +37,7 @@ navigator.geolocation.getCurrentPosition(function (pos) {
     .then((response) => {
       let temp = (response.data.main.temp - 273.15).toFixed();
       let icon = response.data.weather[0].main;
+      console.log("icon", icon);
 
       $("body").append(
         `<div class ="weather">${icons[icon]} ${temp}°C <br /> ${response.data.name} `
